@@ -1,0 +1,56 @@
+﻿@*@model Homework_mvc.Entities.Article*@
+@model Homework_mvc.Model.IndexViewModel
+@using Homework_mvc.App_Code
+@using System.Net
+@{
+    ViewBag.Title = "Home Page";
+}
+
+<h2 class="text-center m-3">Статьи</h2>
+
+<form method="get">
+    <div class="form-row">
+        <div class="form-group col-md-4 col-sm-6">
+            <label for="searchPattern"><h5>Поиск</h5></label>
+            <input type="text" class="form-control" id="searchPattern" name="searchPattern" value="@Model.SearchPattern">
+        </div>
+       </div>
+       
+
+        <h5>По тегу: </h5>
+        @foreach (var item in Model.Tags)
+        {
+            <div class="form-check form-check m-2">
+                <input class="form-check-input" type="checkbox" @(Model.CheckedTags.Contains(item.Id) ? "checked=\"checked\"" : "") name="tagsList" value="@item.Id">
+                <label class="form-check-label" for="inlineCheckbox1">@item.Text</label>
+            </div>
+        }
+        <input type="submit" value="Фильтровать" class="btn btn-default m-2" />
+</form>
+
+@foreach (var item in Model.Articles)
+{<div class="card mb-3 text-center">
+        <img src="@item.Images" class="card-img-top">
+        <div class="card-body">
+            <h5 class="card-title">@item.Title</h5>
+            <p class="card-text">@item.Text</p>
+            @Html.ActionLink("Подробнее", "GetArticle", "Home", new { id = item.Id }, new { @class = "btn btn-primary" })
+            <div class="card-footer text-muted"> Дата публикации: @item.Date.ToShortDateString()</div>
+        </div>
+    </div>
+}
+<br />
+@if (Model.PageInfo.TotalItems > Model.PageInfo.PageSize)
+{
+    <p class="d-flex flex-row justify-content-center w-50 ml-auto mr-auto">
+        @Html.PageLinks(Model.PageInfo, x => Url.Action("Index", new { page = x, tagsQuery = string.Join(",", Model.CheckedTags),searchPattern=Model.SearchPattern }))
+    </p>
+}
+else if (Model.PageInfo.TotalItems == 0)
+{
+    <h4 class="text-center">
+       Таких статей нет на данном сайте
+    </h4>
+}
+
+

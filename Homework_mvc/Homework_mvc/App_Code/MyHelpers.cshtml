@@ -1,0 +1,18 @@
+﻿@using Homework_mvc.Entities;
+
+@helper HtmlList(List<Question> questions)
+{
+    <ol>
+        @foreach (var q in questions)
+        {
+            <li >@q.Text</li>
+            <div class="form-group row">
+                <label for="@q.Id" class="col-sm-2 col-form-label">Ответ</label>
+                <div class="col-sm-10">
+                    <input type="text" class="form-control" id="@q.Id" name="Questions[@(q.Id - 1)].Id" hidden value="@q.Id">
+                    <input type="text" class="form-control" id="@q.Id" name="Profiles[@(q.Id - 1)].Text">
+                </div>
+            </div>
+        }
+    </ol>
+}

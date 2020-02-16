@@ -1,0 +1,13 @@
+﻿
+@{
+    ViewBag.Title = "Result";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+    <div class="alert alert-success m-5" role="alert">
+        <h4 class="alert-heading text-center">Отличная работа!</h4>
+        <p class="text-center">Поздравляем! Вы успешно прошли анкетирование на данном сайте. Спасибо, что читаете наш блог, нам действительно важно ваше мнение, поэтому всегда рады читать ваши отзывы.
+            <hr>
+        <p class=" text-center mb-0">Для того чтобы оставить свой отзыв перейдите по ссылке @Html.ActionLink("Отзывы", "Guest", "Home", null) </p> 
+    </div>
+

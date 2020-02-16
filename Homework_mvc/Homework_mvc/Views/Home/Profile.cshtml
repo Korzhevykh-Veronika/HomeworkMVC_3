@@ -1,0 +1,73 @@
+﻿@model Homework_mvc.Entities.User
+
+@{
+    ViewBag.Title = "Profile";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+
+<h2 class="text-center m-3">Анкета</h2>
+@using (Html.BeginForm("Profile", "Home"))
+{
+    <div class="form-row">
+        <div class="form-group col-md-6">
+            @Html.Label("FirstName", "Имя")
+            @Html.TextBox("FirstName", null, new { @class = "form-control", @pattern = "^[A-Za-zА-Яа-яЁё]+$", @placeholder="Иван", @required = "true" })
+            @Html.ValidationMessageFor(model => model.FirstName)
+        </div>
+        <div class="form-group col-md-6">
+            @Html.Label("LastName", "Фамилия")
+            @Html.TextBox("LastName", null, new { @class = "form-control", @pattern = "^[A-Za-zА-Яа-яЁё]+$", @placeholder="Иванович", @required = "true" })
+            @Html.ValidationMessageFor(model => model.LastName)
+        </div>
+    </div>
+    <div class="form-row justify-content-center">
+        <div class="form-group col-md-6 ">
+            @Html.Label("Email", "Email")
+
+            @Html.TextBox("Email", null, new { @type = "email", @class = "form-control", @required = "true",@placeholder="veronikafacep@gmail.com" })
+            @Html.ValidationMessageFor(model => model.Email)
+
+        </div>
+        <div class="form-group col-md-6 ">
+            @Html.Label("Phone", "Телефон")
+            @Html.TextBox("Phone", null, new { @type = "phone", @class = "form-control",@placeholder="+38(067)4567234",@id="phone"})
+            @Html.ValidationMessageFor(model => model.Phone)
+
+        </div>
+    </div>
+
+    <fieldset class="form-group">
+        <div class="row">
+            <legend class="col-form-label col-sm-1 pt-0">Пол</legend>
+            <div class="col-sm-11">
+                <div class="form-check">
+                    @Html.RadioButton("Gender", "Мужчина", new { @class = "form-check-input", @checked = "true" })
+                    @Html.Label("Gender", "Мужчина", new { @class = "form-check-label" })
+                </div>
+                <div class="form-check">
+                    @Html.RadioButton("Gender", "Женщина", new { @class = "form-check-input" })
+                    @Html.Label("Gender", " Женщина", new { @class = "form-check-label" })
+                </div>
+            </div>
+        </div>
+    </fieldset>
+
+
+    @MyHelpers.HtmlList(ViewBag.Questions);
+
+    <div class="form-group row">
+        <div class="col-sm-10">
+            <div class="form-check">
+                @Html.CheckBox("gridCheck1", false, new { @class = "form-check-input", @required = "true" })
+                @Html.Label("gridCheck1", "Я разрешаю использовать свои личные данные для данного сайта", new { @class = "form-check-label" })
+            </div>
+        </div>
+    </div>
+    <div class="form-group row">
+        <div class="col-sm-10">
+            <button type="submit" class="btn btn-primary">Отправить анкету</button>
+        </div>
+    </div>
+}
+

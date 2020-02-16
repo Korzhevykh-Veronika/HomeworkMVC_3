@@ -1,0 +1,82 @@
+﻿@using Homework_mvc.Entities
+@model Article
+@{
+    ViewBag.Title = "GetArticle";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+
+    <div class="card">
+        <div class="card-body">
+            <h2 class="card-title text-center">@Model.Title</h2>
+            <img src="@Model.Images" class="card-img-top">
+            <div class="display-label"><b>Теги: </b></div>
+            <ul>
+                @foreach (Tag t in Model.Tags)
+                {
+                    <li>@t.Text</li>
+                }
+            </ul>
+            <p class="card-text text-center m-3">@Model.Text</p>
+        </div>
+        <div class="card-footer text-muted">
+            <p class="card-text float-left">Автор публикации: @Model.Author</p>
+            <p class="card-text float-right">Дата публикации: @Model.Date.ToShortDateString()</p>
+        </div>
+        
+    </div>
+    <p>
+        @Html.ActionLink("Back to List", "Index", "Home", new { @class = "btn btn-primary float-left" })
+        @Html.ActionLink("Редактировать", "EditArticle", "Home", new { id = Model.Id }, new { @class = "btn btn-primary float-right" })
+    </p>
+
+
+
+<div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 class="modal-title text-center" id="exampleModalCenterTitle">Оцените наш сайт!</h3>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body text-center">
+                <div class="rating">
+                    <form class="rating-form-2">
+
+                        <label for="super-happy2">
+                            <input type="radio" name="rating" class="super-happy" id="super-happy2" value="super-happy2" checked />
+                            <svg viewBox="0 0 24 24"><path d="M23,10C23,8.89 22.1,8 21,8H14.68L15.64,3.43C15.66,3.33 15.67,3.22 15.67,3.11C15.67,2.7 15.5,2.32 15.23,2.05L14.17,1L7.59,7.58C7.22,7.95 7,8.45 7,9V19A2,2 0 0,0 9,21H18C18.83,21 19.54,20.5 19.84,19.78L22.86,12.73C22.95,12.5 23,12.26 23,12V10M1,21H5V9H1V21Z" /></svg>
+                        </label>
+
+                        <label for="happy2">
+                            <input type="radio" name="rating" class="happy" id="happy2" value="happy2" />
+                            <svg viewBox="0 0 24 24"><path d="M5,9V21H1V9H5M9,21A2,2 0 0,1 7,19V9C7,8.45 7.22,7.95 7.59,7.59L14.17,1L15.23,2.06C15.5,2.33 15.67,2.7 15.67,3.11L15.64,3.43L14.69,8H21C22.11,8 23,8.9 23,10V12C23,12.26 22.95,12.5 22.86,12.73L19.84,19.78C19.54,20.5 18.83,21 18,21H9M9,19H18.03L21,12V10H12.21L13.34,4.68L9,9.03V19Z" /></svg>
+                        </label>
+
+                        <label for="neutral2">
+                            <input type="radio" name="rating" class="neutral" id="neutral2" value="neutral2" />
+                            <svg viewBox="0 0 24 24"><path d="M22.5,10H15.75C15.13,10 14.6,10.38 14.37,10.91L12.11,16.2C12.04,16.37 12,16.56 12,16.75V18A1,1 0 0,0 13,19H18.18L17.5,22.18V22.42C17.5,22.73 17.63,23 17.83,23.22L18.62,24L23.56,19.06C23.83,18.79 24,18.41 24,18V11.5A1.5,1.5 0 0,0 22.5,10M12,6A1,1 0 0,0 11,5H5.82L6.5,1.82V1.59C6.5,1.28 6.37,1 6.17,0.79L5.38,0L0.44,4.94C0.17,5.21 0,5.59 0,6V12.5A1.5,1.5 0 0,0 1.5,14H8.25C8.87,14 9.4,13.62 9.63,13.09L11.89,7.8C11.96,7.63 12,7.44 12,7.25V6Z" /></svg>
+                        </label>
+
+                        <label for="sad2">
+                            <input type="radio" name="rating" class="sad" id="sad2" value="sad2" />
+                            <svg viewBox="0 0 24 24"><path d="M19,15V3H23V15H19M15,3A2,2 0 0,1 17,5V15C17,15.55 16.78,16.05 16.41,16.41L9.83,23L8.77,21.94C8.5,21.67 8.33,21.3 8.33,20.88L8.36,20.57L9.31,16H3C1.89,16 1,15.1 1,14V12C1,11.74 1.05,11.5 1.14,11.27L4.16,4.22C4.46,3.5 5.17,3 6,3H15M15,5H5.97L3,12V14H11.78L10.65,19.32L15,14.97V5Z" /></svg>
+                        </label>
+
+                        <label for="super-sad2">
+                            <input type="radio" name="rating" class="super-sad" id="super-sad2" value="super-sad2" />
+                            <svg viewBox="0 0 24 24"><path d="M19,15H23V3H19M15,3H6C5.17,3 4.46,3.5 4.16,4.22L1.14,11.27C1.05,11.5 1,11.74 1,12V14A2,2 0 0,0 3,16H9.31L8.36,20.57C8.34,20.67 8.33,20.77 8.33,20.88C8.33,21.3 8.5,21.67 8.77,21.94L9.83,23L16.41,16.41C16.78,16.05 17,15.55 17,15V5C17,3.89 16.1,3 15,3Z" /></svg>
+                        </label>
+
+                    </form>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-primary">Save changes</button>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,38 @@
+﻿@model Homework_mvc.Entities.Review
+
+@{
+    ViewBag.Title = "Guest";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="review-header m-3 d-flex flex-row justify-content-between">
+    <h2>Отзывы</h2>
+    <button class="btn" id="showHideContent">Написать отзыв</button>
+</div>
+@using (Html.BeginForm("Guest", "Home", FormMethod.Post, new { @id = "form-review", @style = "display:none;" }))
+{
+<div class="form-group">
+    @Html.Label("Author", "Ваше имя")
+    @Html.TextBox("Author", null, new { @class = "form-control", @pattern = "^[A-Za-zА-Яа-яЁё]+$", @required = "true" })
+    @Html.ValidationMessageFor(model => model.Author)
+</div>
+<div class="form-group">
+    @Html.Label("Text", "Отзыв")
+    @Html.TextBox("Text", null, new { @class = "form-control", @required = "true" })
+    @Html.ValidationMessageFor(model => model.Text)
+</div>
+    <button type="submit" class="btn btn-primary">Оставить отзыв</button>
+}
+
+@foreach (var r in ViewBag.Reviews)
+{<div class="card">
+        <div class="card-header ">
+            <div class=" float-left">@r.Author</div>
+            <div class=" float-right">@r.Date.ToShortDateString()</div>
+        </div>
+        <div class="card-body text-center">
+            <p class="card-text">@r.Text</p>
+        </div>
+    </div>
+}
+
